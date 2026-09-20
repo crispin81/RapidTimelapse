@@ -21,16 +21,19 @@ certificate this project doesn't have yet), so your OS will warn that the
 publisher is unverified on first launch. That's expected for unsigned
 beta software, not a sign anything's wrong:
 
-- **macOS**: open the `.dmg`, drag `RapidTimelapse.app` into Applications.
+- **macOS**: [Direct download (.dmg, Apple Silicon + Intel)](https://github.com/crispin81/RapidTimelapse/releases/download/v1.0.0-beta/RapidTimelapse_1.0.0_universal.dmg).
+  Open the `.dmg`, drag `RapidTimelapse.app` into Applications.
   Gatekeeper will refuse to open it the first time — either right-click
   (Control-click) the app and choose **Open**, then confirm, or run this
   once in Terminal:
   ```
   xattr -d com.apple.quarantine /Applications/RapidTimelapse.app
   ```
-- **Windows**: run the `.msi` or `.exe`. SmartScreen will show "Windows
+- **Windows**: [Direct download (.msi installer)](https://github.com/crispin81/RapidTimelapse/releases/download/v1.0.0-beta/RapidTimelapse_1.0.0_x64_en-US.msi).
+  Run the `.msi` or `.exe`. SmartScreen will show "Windows
   protected your PC" — click **More info**, then **Run anyway**.
-- **Linux**: `chmod +x` the `.AppImage` and run it directly (works on
+- **Linux**: [Direct download (.AppImage)](https://github.com/crispin81/RapidTimelapse/releases/download/v1.0.0-beta/RapidTimelapse_1.0.0_amd64.AppImage).
+  `chmod +x` the `.AppImage` and run it directly (works on
   Debian, Arch, Fedora and most others), or install the `.deb`/`.rpm` for
   your distro. If the window opens blank, see
   [Linux: blank/gray window](#linux-blankgray-window) below.
