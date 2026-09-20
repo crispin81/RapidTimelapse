@@ -1,6 +1,6 @@
 # RapidRAW Timelapse
 
-An [LRTimelapse](https://lrtimelapse.com/)-style keyframe ramping companion for
+An LRTimelapse-style keyframe ramping companion for
 [RapidRAW](https://github.com/CyberTimon/RapidRAW). A native desktop app
 (Tauri: Rust backend, React/TypeScript UI) — no separate runtime to install.
 
