@@ -21,12 +21,12 @@ certificate this project doesn't have yet), so your OS will warn that the
 publisher is unverified on first launch. That's expected for unsigned
 beta software, not a sign anything's wrong:
 
-- **macOS**: open the `.dmg`, drag `rrtimelapse.app` into Applications.
+- **macOS**: open the `.dmg`, drag `RapidTimelapse.app` into Applications.
   Gatekeeper will refuse to open it the first time — either right-click
   (Control-click) the app and choose **Open**, then confirm, or run this
   once in Terminal:
   ```
-  xattr -d com.apple.quarantine /Applications/rrtimelapse.app
+  xattr -d com.apple.quarantine /Applications/RapidTimelapse.app
   ```
 - **Windows**: run the `.msi` or `.exe`. SmartScreen will show "Windows
   protected your PC" — click **More info**, then **Run anyway**.
