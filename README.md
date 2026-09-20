@@ -1,4 +1,4 @@
-# RapidRAW Timelapse
+# RapidTimelapse - Companion for RapidRAW
 
 An LRTimelapse-style keyframe ramping companion for
 [RapidRAW](https://github.com/CyberTimon/RapidRAW). A native desktop app
