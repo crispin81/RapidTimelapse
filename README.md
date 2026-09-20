@@ -11,6 +11,30 @@ the folder in RapidRAW and export as normal.
 
 Free and open-source, licensed [AGPL-3.0](LICENSE).
 
+## Installing
+
+Grab the latest build for your OS from
+[Releases](https://github.com/crispin81/RapidTimelapse/releases).
+
+**These builds aren't code-signed** (that needs a paid developer
+certificate this project doesn't have yet), so your OS will warn that the
+publisher is unverified on first launch. That's expected for unsigned
+beta software, not a sign anything's wrong:
+
+- **macOS**: open the `.dmg`, drag `rrtimelapse.app` into Applications.
+  Gatekeeper will refuse to open it the first time — either right-click
+  (Control-click) the app and choose **Open**, then confirm, or run this
+  once in Terminal:
+  ```
+  xattr -d com.apple.quarantine /Applications/rrtimelapse.app
+  ```
+- **Windows**: run the `.msi` or `.exe`. SmartScreen will show "Windows
+  protected your PC" — click **More info**, then **Run anyway**.
+- **Linux**: `chmod +x` the `.AppImage` and run it directly (works on
+  Debian, Arch, Fedora and most others), or install the `.deb`/`.rpm` for
+  your distro. If the window opens blank, see
+  [Linux: blank/gray window](#linux-blankgray-window) below.
+
 ## Workflow
 
 1. **Import the whole sequence into RapidRAW**, select all, press <kbd>0</kbd>
