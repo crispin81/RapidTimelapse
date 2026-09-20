@@ -1,0 +1,59 @@
+name: Release
+
+# Builds a GitHub Release with Linux bundles (AppImage, .deb, .rpm) whenever
+# a `v*` tag is pushed. Runs on GitHub's own Ubuntu runner rather than a
+# local machine specifically so the AppImage stays portable: it's built
+# against an appropriately-aged toolchain (this matters because a strip/glibc
+# too new for the AppImage tooling on the build machine can produce an
+# AppImage that plain fails to build, or that only runs on distros as new as
+# the build machine — see the commit that added this workflow).
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Linux build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libwebkit2gtk-4.1-dev \
+            libappindicator3-dev \
+            librsvg2-dev \
+            patchelf \
+            build-essential \
+            curl \
+            wget \
+            file \
+            libssl-dev \
+            libxdo-dev
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Install Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install npm dependencies
+        run: npm ci
+
+      - name: Build and release
+        uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tagName: ${{ github.ref_name }}
+          releaseName: "RapidTIMELAPSE ${{ github.ref_name }}"
+          releaseDraft: true
+          prerelease: true
