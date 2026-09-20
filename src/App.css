@@ -189,6 +189,25 @@ button.primary:hover:not(:disabled) {
   min-height: 0;
 }
 
+.video-link {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 10px 10px 0;
+  padding: 8px 10px;
+  background: linear-gradient(135deg, #8a2b2b, #4a1414);
+  border: 1px solid #e0473f;
+  border-radius: 4px;
+  color: #ffffff;
+  font-size: 11.5px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+}
+.video-link:hover {
+  opacity: 0.85;
+}
+
 .holy-grail-btn:disabled {
   margin: 10px 10px 0;
   padding: 8px 10px;
@@ -425,25 +444,4 @@ tr.is-selected {
 .oss-note {
   font-size: 11px;
   color: var(--text-dim);
-}
-.video-placeholder {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 4px 10px;
-  background: linear-gradient(135deg, var(--accent-dim), #2a2e34);
-  border: 1px dashed var(--accent);
-  border-radius: 4px;
-  color: var(--accent);
-  font-size: 11px;
-  font-weight: 600;
-  text-decoration: none;
-  opacity: 0.85;
-  cursor: default;
-}
-.video-badge {
-  color: var(--text-dim);
-  font-weight: 400;
-  font-style: italic;
-  font-size: 10px;
 }

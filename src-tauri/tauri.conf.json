@@ -12,7 +12,7 @@
   "app": {
     "windows": [
       {
-        "title": "rrtimelapse",
+        "title": "RapidTimelapse",
         "width": 800,
         "height": 600
       }

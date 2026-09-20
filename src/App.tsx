@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { getVersion } from "@tauri-apps/api/app";
 import { listen } from "@tauri-apps/api/event";
+import { openUrl } from "@tauri-apps/plugin-opener";
 import "./App.css";
 import { browseFolder, computePlan, revertFolder, scanFolder, writePlan, type RampSettings } from "./api";
 import type { FrameInfo, PlanResult } from "./types";
@@ -248,6 +249,17 @@ export default function App() {
 
       <div id="main">
         <aside id="filmstripPanel">
+          <a
+            className="video-link"
+            href="https://youtu.be/GPtzFxWJlyk"
+            onClick={(e) => {
+              e.preventDefault();
+              openUrl("https://youtu.be/GPtzFxWJlyk");
+            }}
+            title="Watch the tutorial video on YouTube"
+          >
+            ▶ New user? Watch this first!
+          </a>
           <button type="button" className="holy-grail-btn" disabled title="Day-to-night / night-to-day auto exposure blending — not implemented yet">
             ✨ Holy Grail Mode — coming soon
           </button>
@@ -289,15 +301,7 @@ export default function App() {
       </div>
 
       <footer id="statusBar">
-        <span className="oss-note">RapidTIMELAPSE is free and open-source software, licensed AGPL-3.0.</span>
-        <a
-          className="video-placeholder"
-          href="#"
-          onClick={(e) => e.preventDefault()}
-          title="Tutorial video link goes here once one exists"
-        >
-          ▶ Watch this first! <span className="video-badge">coming soon</span>
-        </a>
+        <span className="oss-note">RapidTIMELAPSE is free and open-source software, licensed AGPL-3.0. Developed and maintained by Chris Cork Photography.</span>
       </footer>
     </div>
   );
