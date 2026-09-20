@@ -1,12 +1,18 @@
 name: Release
 
-# Builds a GitHub Release with Linux bundles (AppImage, .deb, .rpm) whenever
-# a `v*` tag is pushed. Runs on GitHub's own Ubuntu runner rather than a
-# local machine specifically so the AppImage stays portable: it's built
-# against an appropriately-aged toolchain (this matters because a strip/glibc
-# too new for the AppImage tooling on the build machine can produce an
-# AppImage that plain fails to build, or that only runs on distros as new as
-# the build machine — see the commit that added this workflow).
+# Builds a GitHub Release with installers for Linux (AppImage, .deb, .rpm),
+# Windows (.msi, .exe) and macOS (.dmg, universal Intel+Apple Silicon)
+# whenever a `v*` tag is pushed. Runs on GitHub's own runners rather than a
+# local machine specifically so the Linux build stays portable: it's built
+# against an appropriately-aged toolchain (a strip/glibc too new for the
+# AppImage tooling on the build machine can produce an AppImage that plain
+# fails to build, or that only runs on distros as new as the build machine
+# — see the commit that added this workflow).
+#
+# Neither the Windows nor the macOS build is code-signed (that needs a paid
+# certificate this project doesn't have), so Windows SmartScreen and macOS
+# Gatekeeper will both warn that the publisher is unverified on first launch
+# until that's set up.
 on:
   push:
     tags:
@@ -18,11 +24,22 @@ permissions:
 
 jobs:
   release:
-    runs-on: ubuntu-22.04
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - platform: ubuntu-22.04
+            args: ""
+          - platform: macos-latest
+            args: "--target universal-apple-darwin"
+          - platform: windows-latest
+            args: ""
+    runs-on: ${{ matrix.platform }}
     steps:
       - uses: actions/checkout@v4
 
       - name: Install Linux build dependencies
+        if: matrix.platform == 'ubuntu-22.04'
         run: |
           sudo apt-get update
           sudo apt-get install -y \
@@ -39,6 +56,8 @@ jobs:
 
       - name: Install Rust
         uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.platform == 'macos-latest' && 'aarch64-apple-darwin,x86_64-apple-darwin' || '' }}
 
       - name: Install Node
         uses: actions/setup-node@v4
@@ -57,3 +76,4 @@ jobs:
           releaseName: "RapidTIMELAPSE ${{ github.ref_name }}"
           releaseDraft: true
           prerelease: true
+          args: ${{ matrix.args }}
