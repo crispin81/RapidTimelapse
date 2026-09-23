@@ -201,11 +201,32 @@ button.primary:hover:not(:disabled) {
   color: #ffffff;
   font-size: 11.5px;
   font-weight: 600;
+}
+.video-link__cta {
+  flex: 1;
+  color: inherit;
   text-decoration: none;
   cursor: pointer;
 }
-.video-link:hover {
+.video-link__cta:hover {
   opacity: 0.85;
+}
+.video-link__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  color: #ffffff;
+  cursor: pointer;
+  font-size: 15px;
+  line-height: 1;
+  padding: 0;
+  opacity: 0.75;
+}
+.video-link__close:hover {
+  opacity: 1;
 }
 
 .holy-grail-btn:disabled {
@@ -444,4 +465,18 @@ tr.is-selected {
 .oss-note {
   font-size: 11px;
   color: var(--text-dim);
+}
+
+.coffee-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--text);
+  text-decoration: none;
+  font-size: 11px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.coffee-link:hover {
+  text-decoration: underline;
 }

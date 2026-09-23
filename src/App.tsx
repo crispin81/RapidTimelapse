@@ -2,12 +2,17 @@ import { useEffect, useMemo, useState } from "react";
 import { getVersion } from "@tauri-apps/api/app";
 import { listen } from "@tauri-apps/api/event";
 import { openUrl } from "@tauri-apps/plugin-opener";
+import { Coffee, Smile } from "lucide-react";
 import "./App.css";
 import { browseFolder, computePlan, revertFolder, scanFolder, writePlan, type RampSettings } from "./api";
 import type { FrameInfo, PlanResult } from "./types";
 import Filmstrip from "./components/Filmstrip";
 import CurveChart from "./components/CurveChart";
 import DataTable from "./components/DataTable";
+
+const COFFEE_URL = "https://buymeacoffee.com/chriscorkphotography";
+const TUTORIAL_URL = "https://youtu.be/GPtzFxWJlyk";
+const TUTORIAL_DISMISSED_KEY = "rapidtimelapse.tutorialDismissed";
 
 const DEFAULT_PARAMS = ["exposure", "contrast", "highlights", "shadows", "whites", "blacks", "temperature", "tint", "vibrance", "saturation", "clarity", "dehaze"];
 
@@ -28,6 +33,22 @@ export default function App() {
   const [status, setStatus] = useState("");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [tutorialDismissed, setTutorialDismissed] = useState(() => {
+    try {
+      return localStorage.getItem(TUTORIAL_DISMISSED_KEY) === "1";
+    } catch {
+      return false;
+    }
+  });
+
+  function dismissTutorial() {
+    setTutorialDismissed(true);
+    try {
+      localStorage.setItem(TUTORIAL_DISMISSED_KEY, "1");
+    } catch {
+      // localStorage unavailable - dismissal just won't persist across restarts.
+    }
+  }
   const [scanProgress, setScanProgress] = useState<{ done: number; total: number } | null>(null);
   const [version, setVersion] = useState("");
 
@@ -249,17 +270,24 @@ export default function App() {
 
       <div id="main">
         <aside id="filmstripPanel">
-          <a
-            className="video-link"
-            href="https://youtu.be/GPtzFxWJlyk"
-            onClick={(e) => {
-              e.preventDefault();
-              openUrl("https://youtu.be/GPtzFxWJlyk");
-            }}
-            title="Watch the tutorial video on YouTube"
-          >
-            ▶ New user? Watch this first!
-          </a>
+          {!tutorialDismissed && (
+            <div className="video-link">
+              <a
+                className="video-link__cta"
+                href={TUTORIAL_URL}
+                onClick={(e) => {
+                  e.preventDefault();
+                  openUrl(TUTORIAL_URL);
+                }}
+                title="Watch the tutorial video on YouTube"
+              >
+                ▶ New user? Watch this first!
+              </a>
+              <button type="button" className="video-link__close" onClick={dismissTutorial} title="Dismiss">
+                ×
+              </button>
+            </div>
+          )}
           <button type="button" className="holy-grail-btn" disabled title="Day-to-night / night-to-day auto exposure blending — not implemented yet">
             ✨ Holy Grail Mode — coming soon
           </button>
@@ -302,6 +330,17 @@ export default function App() {
 
       <footer id="statusBar">
         <span className="oss-note">RapidTIMELAPSE is free and open-source software, licensed AGPL-3.0. Developed and maintained by Chris Cork Photography.</span>
+        <a
+          className="coffee-link"
+          href={COFFEE_URL}
+          onClick={(e) => {
+            e.preventDefault();
+            openUrl(COFFEE_URL);
+          }}
+          title="Buy Chris a coffee"
+        >
+          Feed Chris' coffee addiction <Smile size={13} color="var(--accent)" /> <Coffee size={13} color="var(--accent)" />
+        </a>
       </footer>
     </div>
   );
