@@ -67,6 +67,13 @@ jobs:
       - name: Install npm dependencies
         run: npm ci
 
+      - name: install patched linuxdeploy gtk hook (native Wayland fix)
+        if: matrix.platform == 'ubuntu-22.04'
+        run: |
+          mkdir -p ~/.cache/tauri
+          cp .github/appimage/linuxdeploy-plugin-gtk.sh ~/.cache/tauri/linuxdeploy-plugin-gtk.sh
+          chmod +x ~/.cache/tauri/linuxdeploy-plugin-gtk.sh
+
       - name: Build and release
         uses: tauri-apps/tauri-action@v0
         env:
